@@ -1,0 +1,121 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package at3clientapp;
+
+import com.sun.tools.javac.Main;
+import java.util.ArrayList;
+import java.util.List;
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
+import javafx.stage.Stage;
+import org.junit.Assert;
+import org.junit.Test;
+import static org.junit.Assert.*;
+import org.junit.BeforeClass;
+
+/**
+ *
+ * @author student
+ */
+public class NewEmptyJUnitTest{
+
+    //private static List<String[]> list;
+    public NewEmptyJUnitTest() {
+    }
+    
+    public static class TestApp extends Application{
+        @Override
+        public void start(Stage stage) throws Exception{
+            
+        }
+    }
+
+    @BeforeClass
+    public static void setUpClass() throws InterruptedException {
+        // Initialise Java FX
+
+        System.out.printf("About to launch FX App\n");
+        Thread t = new Thread("JavaFX Init Thread") {
+            public void run() {
+                Application.launch(TestApp.class, new String[0]);
+            }
+        };
+        t.setDaemon(true);
+        t.start();
+        System.out.printf("FX App thread started\n");
+        Thread.sleep(500);
+    }
+
+    
+    @Test
+    public void ListAddElements() {
+        List<String[]> list = new ArrayList<>();
+
+        String[] data1 = new String[]{"a", "a"};
+        String[] data2 = new String[]{"b", "b"};
+        String[] data3 = new String[]{"c", "c"};
+        String[] data4 = new String[]{"d", "d"};
+        String[] data5 = new String[]{"e", "e"};
+
+        list.add(data5);
+        list.add(data3);
+        list.add(data1);
+        list.add(data4);
+        list.add(data2);
+
+        Assert.assertArrayEquals(data5, list.get(0));
+
+        Assert.assertArrayEquals(data3, list.get(1));
+        Assert.assertArrayEquals(data1, list.get(2));
+        Assert.assertArrayEquals(data4, list.get(3));
+        Assert.assertArrayEquals(data2, list.get(4));
+
+        assertTrue(list.size() == 5);
+        System.out.println("Testing adding methods to a List<String[]> list");
+    }
+
+    @Test
+    public void ListMergeSortElements() {
+        AT3ClientApp at3Tester = new AT3ClientApp();
+
+        List<String[]> list = new ArrayList<>();
+
+        String[] data1 = new String[]{"a", "a"};
+        String[] data2 = new String[]{"b", "b"};
+        String[] data3 = new String[]{"c", "c"};
+        String[] data4 = new String[]{"d", "d"};
+        String[] data5 = new String[]{"e", "e"};
+
+        list.add(data5);
+        list.add(data3);
+        list.add(data1);
+        list.add(data4);
+        list.add(data2);
+
+        Assert.assertArrayEquals(data5, list.get(0));
+        Assert.assertArrayEquals(data3, list.get(1));
+        Assert.assertArrayEquals(data1, list.get(2));
+        Assert.assertArrayEquals(data4, list.get(3));
+        Assert.assertArrayEquals(data2, list.get(4));
+
+        assertTrue(list.size() == 5);
+
+        at3Tester.sort(list);
+
+        Assert.assertArrayEquals(data1, list.get(0));
+        Assert.assertArrayEquals(data2, list.get(1));
+        Assert.assertArrayEquals(data3, list.get(2));
+        Assert.assertArrayEquals(data4, list.get(3));
+        Assert.assertArrayEquals(data5, list.get(4));
+
+        assertTrue(list.size() == 5);
+        System.out.println("Testing Merge Sort Method for List<String[]> list items");
+    }
+
+    
+
+}
